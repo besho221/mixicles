@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mixicles — Where Ice Meets Paradise</title>
+  <link rel="icon" type="image/png" href="images/mixicles-logo.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #fbf3ff;
+      --bg2:#fff7cc;
+      --ink:#15122a;
+      --muted:#4b4766;
+
+      --pink:#ff2da6;
+      --cyan:#00c7ff;
+      --yellow:#ffd34e;
+      --lime:#7cffb2;
+      --navy:#0b3d91;
+
+      --card: rgba(255,255,255,.68);
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
+      --shadow2: 0 10px 30px rgba(0,0,0,.10);
+
+      --r: 22px;
+      --r2: 28px;
+      --max: 1150px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 10% 10%, rgba(255,45,166,.16), transparent 55%),
+        radial-gradient(900px 700px at 90% 20%, rgba(0,199,255,.18), transparent 55%),
+        radial-gradient(800px 700px at 80% 90%, rgba(255,211,78,.20), transparent 55%),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    img{ max-width:100%; display:block; }
+    a{ color:inherit; text-decoration:none; }
+
+    .wrap{
+      max-width:var(--max);
+      margin:auto;
+      padding:22px;
+    }
+
+    /* NAV */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(14px);
+      background:rgba(255,255,255,.58);
+      border-bottom:1px solid rgba(20,18,42,.08);
+    }
+
+    .nav-inner{
+      max-width:var(--max);
+      margin:auto;
+      padding:14px 22px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:900;
+      letter-spacing:.5px;
+    }
+
+    .brand-logo{
+      width:48px;
+      height:48px;
+      border-radius:16px;
+      object-fit:cover;
+      background:#fff;
+      border:1px solid rgba(20,18,42,.08);
+      box-shadow:0 8px 20px rgba(0,0,0,.12);
+      transition:transform .2s ease;
+    }
+
+    .brand:hover .brand-logo{
+      transform:scale(1.06) rotate(-2deg);
+    }
+
+    .brand span{
+      font-size:1.05rem;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .nav-links a{
+      padding:10px 12px;
+      border-radius:12px;
+      transition:.2s ease;
+    }
+
+    .nav-links a:hover{
+      background:rgba(255,255,255,.75);
+      color:var(--ink);
+      transform:translateY(-1px);
+    }
+
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:none;
+      cursor:pointer;
+      padding:12px 16px;
+      border-radius:14px;
+      font-weight:800;
+      letter-spacing:.2px;
+      box-shadow:var(--shadow2);
+      transition:.2s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--pink), var(--cyan));
+      color:#fff;
+    }
+
+    .btn-ghost{
+      background:rgba(255,255,255,.7);
+      color:var(--ink);
+      border:1px solid rgba(20,18,42,.08);
+    }
+
+    /* HERO */
+    .hero{
+      padding:46px 0 20px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap:30px;
+      align-items:center;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.62);
+      border:1px solid rgba(20,18,42,.08);
+      box-shadow:var(--shadow2);
+      font-weight:700;
+      color:var(--muted);
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--cyan);
+      box-shadow:0 0 0 6px rgba(0,199,255,.18);
+      animation:pulse 1.6s infinite ease-in-out;
+    }
+
+    @keyframes pulse{
+      0%,100%{ transform:scale(1); opacity:1; }
+      50%{ transform:scale(1.2); opacity:.7; }
+    }
+
+    .title{
+      margin:18px 0 10px;
+      font-size:clamp(38px, 5vw, 66px);
+      line-height:1.02;
+      letter-spacing:-1px;
+      font-weight:900;
+    }
+
+    .grad{
+      background:linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .tagline{
+      font-family:Pacifico, cursive;
+      font-size:clamp(18px, 2.4vw, 28px);
+      color:rgba(0,0,0,.65);
+      margin:0 0 16px;
+    }
+
+    .lead{
+      color:var(--muted);
+      line-height:1.8;
+      font-size:16px;
+      max-width:60ch;
+      margin:0 0 18px;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .f{
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(20,18,42,.08);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 10px 25px rgba(0,0,0,.08);
+      display:flex;
+      gap:12px;
+      transition:.2s ease;
+    }
+
+    .f:hover{
+      transform:translateY(-3px);
+    }
+
+    .icon{
+      width:42px;
+      height:42px;
+      flex:0 0 auto;
+      border-radius:16px;
+      background:linear-gradient(135deg, var(--yellow), var(--cyan));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      color:#1a1a1a;
+      font-size:18px;
+    }
+
+    .f h4{
+      margin:0;
+      font-size:14px;
+    }
+
+    .f p{
+      margin:4px 0 0;
+      font-size:13px;
+      line-height:1.55;
+      color:var(--muted);
+    }
+
+    .hero-image{
+      position:relative;
+      width:100%;
+      min-height:520px;
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 25px 60px rgba(0,0,0,.15);
+      border:1px solid rgba(20,18,42,.08);
+      background:#fff;
+    }
+
+    .hero-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .7s ease;
+    }
+
+    .hero-image:hover img{
+      transform:scale(1.06);
+    }
+
+    .spark{
+      position:absolute;
+      left:24px;
+      bottom:24px;
+      padding:12px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.74);
+      backdrop-filter:blur(12px);
+      font-weight:800;
+      box-shadow:0 10px 25px rgba(0,0,0,.15);
+      color:var(--navy);
+    }
+
+    /* SECTION BASE */
+    section{
+      padding:56px 0;
+    }
+
+    .sec-title{
+      margin-bottom:20px;
+    }
+
+    .sec-title h2{
+      margin:0 0 8px;
+      font-size:clamp(28px,3vw,40px);
+      font-weight:900;
+      letter-spacing:-.6px;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      line-height:1.65;
+      max-width:60ch;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(20,18,42,.08);
+      border-radius:var(--r2);
+      padding:16px;
+      box-shadow:0 16px 45px rgba(0,0,0,.10);
+      transition:.2s ease;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow);
+    }
+
+    .about-box{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      align-items:center;
+    }
+
+    .about-image{
+      border-radius:22px;
+      overflow:hidden;
+      min-height:260px;
+      border:1px solid rgba(20,18,42,.08);
+    }
+
+    .about-image img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .about-copy h3{
+      margin:0 0 10px;
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .about-copy p{
+      margin:0;
+      line-height:1.8;
+      color:var(--muted);
+    }
+
+    /* FLAVORS */
+    .flavors{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .flavor-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .badge{
+      font-size:12px;
+      font-weight:900;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.75);
+      border:1px solid rgba(20,18,42,.08);
+    }
+
+    .pill2{
+      font-size:12px;
+      color:var(--muted);
+      font-weight:600;
+    }
+
+    .image-box{
+      height:180px;
+      overflow:hidden;
+      border-radius:18px;
+      margin-bottom:12px;
+      position:relative;
+      background:rgba(255,255,255,.5);
+      border:1px solid rgba(20,18,42,.08);
+    }
+
+    .image-box img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .55s ease, filter .55s ease;
+    }
+
+    .card:hover .image-box img{
+      transform:scale(1.12) rotate(1deg);
+      filter:saturate(1.18) contrast(1.05);
+    }
+
+    .image-box::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 20%,
+        rgba(255,255,255,.28) 50%,
+        rgba(255,255,255,0) 80%
+      );
+      transform:translateX(-120%);
+      transition:transform .75s ease;
+    }
+
+    .card:hover .image-box::after{
+      transform:translateX(120%);
+    }
+
+    .card h3{
+      margin:10px 0 6px;
+      font-size:17px;
+      font-weight:900;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.65;
+    }
+
+    /* TABLE */
+    .table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      overflow:hidden;
+      border-radius:var(--r2);
+      border:1px solid rgba(20,18,42,.10);
+      background:rgba(255,255,255,.58);
+      box-shadow:var(--shadow2);
+    }
+
+    .table th{
+      text-align:left;
+      padding:14px;
+      font-size:13px;
+      background:linear-gradient(90deg, rgba(255,45,166,.18), rgba(0,199,255,.14));
+      border-bottom:1px solid rgba(20,18,42,.10);
+      font-weight:900;
+    }
+
+    .table td{
+      padding:14px;
+      font-size:13px;
+      color:var(--muted);
+      border-bottom:1px solid rgba(20,18,42,.08);
+      vertical-align:top;
+      line-height:1.6;
+    }
+
+    .table tr:last-child td{
+      border-bottom:none;
+    }
+
+    .seg{
+      color:var(--ink);
+      font-weight:900;
+    }
+
+    /* CTA */
+    .cta-strip{
+      border-radius:32px;
+      padding:24px;
+      background:
+        radial-gradient(500px 280px at 20% 40%, rgba(255,45,166,.20), transparent 60%),
+        radial-gradient(500px 280px at 80% 40%, rgba(0,199,255,.18), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.62), rgba(255,255,255,.36));
+      border:1px solid rgba(20,18,42,.10);
+      box-shadow:var(--shadow);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .cta-strip h3{
+      margin:0;
+      font-size:22px;
+      font-weight:900;
+    }
+
+    .cta-strip p{
+      margin:8px 0 0;
+      color:var(--muted);
+      line-height:1.7;
+      max-width:62ch;
+      font-size:14px;
+    }
+
+    footer{
+      padding:28px 0 42px;
+      color:rgba(0,0,0,.55);
+      font-size:12px;
+      text-align:center;
+    }
+
+    /* REVEAL */
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .55s ease, transform .55s ease;
+    }
+
+    .reveal.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1020px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        min-height:420px;
+      }
+
+      .flavors{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .about-box{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 760px){
+      .nav-links{
+        display:none;
+      }
+
+      .features{
+        grid-template-columns:1fr;
+      }
+
+      .flavors{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        min-height:340px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <img class="brand-logo" src="images/mixicles-logo.png" alt="Mixicles logo">
+        <span>MIXICLES</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#flavors">Flavors</a>
+        <a href="#audience">Audience</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="cta">
+        <a class="btn btn-ghost" href="#flavors">See flavors</a>
+        <a class="btn btn-primary" href="#contact">Get a sample</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="reveal">
+          <span class="pill"><span class="dot"></span> Glass-flavored ice cubes • DIY drinks in seconds</span>
+
+          <h1 class="title">
+            Where <span class="grad">Ice</span> Meets <span class="grad">Paradise</span>.
+          </h1>
+
+          <p class="tagline">Mixicles turns every sip into a colorful experience.</p>
+
+          <p class="lead">
+            Mixicles is the ultimate upgrade for your glass — flavored ice cubes that make DIY drinks effortless.
+            Instead of watering down your beverage, these cubes add bursts of fruit, herbs, and sweetness as they melt.
+          </p>
+
+          <div class="features">
+            <div class="f">
+              <div class="icon">01</div>
+              <div>
+                <h4>No Mess ✨ </h4>
+                <p>Just pop a cube into your water, soda, mocktail, or coffee.</p>
+              </div>
+            </div>
+
+            <div class="f">
+              <div class="icon">02</div>
+              <div>
+                <h4>Always Fresh 😋 </h4>
+                <p>Made with real ingredients for a gourmet, refreshing feel.</p>
+              </div>
+            </div>
+
+            <div class="f">
+              <div class="icon">03</div>
+              <div>
+                <h4>Looks Amazing 😎 </h4>
+                <p>Every drink becomes colorful, premium, and photo-ready.</p>
+              </div>
+            </div>
+
+            <div class="f">
+              <div class="icon">04</div>
+              <div>
+                <h4>Easy Hosting 🚀 </h4>
+                <p>Perfect for home entertaining, brunch tables, cafés, and events.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-image reveal">
+          <img src="images/hero-splash.png" alt="Mixicles splash image">
+          <div class="spark">✨Pop. Sip. Repeat.✨</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-title reveal">
+        <h2>What is Mixicles?</h2>
+        <p class="sub">Flavor cubes that melt into your drink — not your vibe.</p>
+      </div>
+
+     <div class="card reveal">
+
+  <h3>Upgrade your glass</h3>
+
+  <p>
+    Mixicles gives you the “wow” of a fancy café drink at home — with minimal effort.
+    Drop one cube, watch the color bloom, and enjoy the flavor as it melts.
+    It works beautifully for refreshing fruit drinks, party beverages,
+    iced coffee, and creative hosting moments.
+  </p>
+
+</div>
+  </section>
+
+  <section id="flavors">
+    <div class="wrap">
+      <div class="sec-title reveal">
+        <h2>Flavors</h2>
+        <p class="sub">Pick your mood. Mix your moment.</p>
+      </div>
+
+      <div class="flavors">
+
+        <div class="card reveal">
+          <div class="flavor-top">
+            <span class="badge">Fresh</span>
+            <span class="pill2">Best for summer</span>
+          </div>
+          <div class="image-box">
+            <img src="images/lemon-mint.jpg" alt="Lemon mint drink">
+          </div>
+          <h3>Lemon Mint</h3>
+          <p>Crisp, zesty, and refreshing — the clean summer flavor.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="flavor-top">
+            <span class="badge">Fruity</span>
+            <span class="pill2">Photo-ready</span>
+          </div>
+          <div class="image-box">
+            <img src="images/blueberry.jpg" alt="Blueberry drink">
+          </div>
+          <h3>Blueberry</h3>
+          <p>Sweet, vibrant, and perfect for colorful drinks.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="flavor-top">
+            <span class="badge">Tropical</span>
+            <span class="pill2">Party vibe</span>
+          </div>
+          <div class="image-box">
+            <img src="images/passionfruit.jpg" alt="Passion fruit drink">
+          </div>
+          <h3>Passion Fruit</h3>
+          <p>Tangy tropical notes — instantly makes any drink feel like vacation.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="flavor-top">
+            <span class="badge">Bold</span>
+            <span class="pill2">Late-night</span>
+          </div>
+          <div class="image-box">
+            <img src="images/coffee.jpg" alt="Iced coffee drink">
+          </div>
+          <h3>Coffee</h3>
+          <p>For iced coffee lovers — smooth flavor without watering it down.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="audience">
+    <div class="wrap">
+      <div class="sec-title reveal">
+        <h2>Target Audience</h2>
+        <p class="sub">Who’s going to love Mixicles the most?</p>
+      </div>
+
+      <table class="table reveal">
+        <thead>
+          <tr>
+            <th style="width:22%">Segment</th>
+            <th style="width:33%">Description</th>
+            <th>Why They Love Mixicles</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="seg">Gen Z & Millennials</td>
+            <td>Ages 18–35, trend-driven, social media savvy.</td>
+            <td>They want fun, colorful, aesthetic drinks and love experimenting with flavors.</td>
+          </tr>
+          <tr>
+            <td class="seg">Health-Conscious Consumers</td>
+            <td>All ages, focused on wellness and natural ingredients.</td>
+            <td>Fruit-infused refreshment with real ingredients and a lighter, fresher feel.</td>
+          </tr>
+          <tr>
+            <td class="seg">Parents & Families</td>
+            <td>Looking for fun, safe treats for kids.</td>
+            <td>Flavored ice cubes make hydration more exciting and creative.</td>
+          </tr>
+          <tr>
+            <td class="seg">Hospitality & Events</td>
+            <td>Bars, cafés, catering services, party planners.</td>
+            <td>They add instant flair to mocktails, cocktails, iced drinks, and themed events.</td>
+          </tr>
+          <tr>
+            <td class="seg">DIY Entertainers</td>
+            <td>Home hosts, picnic lovers, brunch enthusiasts.</td>
+            <td>Perfect for easy hosting and creative presentation with minimal effort.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="cta-strip reveal">
+        <div>
+          <h3>Want to try Mixicles?</h3>
+          <p>
+            Drop your info and we’ll send sample options or a mini menu for events.
+            Perfect for parties, cafés, brunches, and creative everyday drinks.
+          </p>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn-primary" href="mailto:hello@mixicles.com?subject=Mixicles%20Sample%20Request">Email us</a>
+          <a class="btn btn-ghost" href="#top">Back to top</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Mixicles • Where Ice Meets Paradise
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add("show");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
