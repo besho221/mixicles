@@ -56,6 +56,7 @@
     }
 
     /* NAV */
+    
     .nav{
       position:sticky;
       top:0;
@@ -64,7 +65,119 @@
       background:rgba(255,255,255,.58);
       border-bottom:1px solid rgba(20,18,42,.08);
     }
+.menu-toggle{
+  display:none;
+  width:46px;
+  height:46px;
+  border:none;
+  background:rgba(255,255,255,.78);
+  border:1px solid rgba(20,18,42,.08);
+  border-radius:14px;
+  box-shadow:var(--shadow2);
+  cursor:pointer;
+  padding:0;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+}
 
+.menu-toggle span{
+  display:block;
+  width:20px;
+  height:2.5px;
+  background:var(--ink);
+  border-radius:999px;
+  transition:.25s ease;
+}
+
+.menu-toggle.active span:nth-child(1){
+  transform:translateY(7px) rotate(45deg);
+}
+.menu-toggle.active span:nth-child(2){
+  opacity:0;
+}
+.menu-toggle.active span:nth-child(3){
+  transform:translateY(-8px) rotate(-45deg);
+}
+
+.mobile-menu{
+  display:none;
+  max-width:var(--max);
+  margin:0 auto;
+  padding:0 22px 16px;
+}
+
+.mobile-menu a{
+  display:block;
+  padding:14px 16px;
+  margin-top:8px;
+  border-radius:16px;
+  background:rgba(255,255,255,.72);
+  border:1px solid rgba(20,18,42,.08);
+  font-weight:700;
+  color:var(--ink);
+  box-shadow:0 8px 20px rgba(0,0,0,.06);
+}
+
+.mobile-menu.show{
+  display:block;
+}
+
+@media (max-width: 760px){
+  .nav-inner{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:10px;
+    align-items:center;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu-toggle{
+    display:flex;
+  }
+
+  .cta{
+    justify-self:end;
+    display:flex;
+    gap:8px;
+  }
+
+  .cta .btn{
+    padding:10px 12px;
+    font-size:12px;
+    white-space:nowrap;
+  }
+
+  .brand span{
+    display:none;
+  }
+
+  .brand-logo{
+    width:44px;
+    height:44px;
+  }
+}
+
+@media (max-width: 520px){
+  .nav-inner{
+    grid-template-columns:auto 1fr auto;
+  }
+
+  .cta{
+    gap:6px;
+  }
+
+  .cta .btn{
+    padding:9px 10px;
+    font-size:11px;
+    border-radius:12px;
+  }
+}
+	
     .nav-inner{
       max-width:var(--max);
       margin:auto;
@@ -592,19 +705,43 @@
 </head>
 <body>
 
-  <div class="nav">
-    <div class="nav-inner">
-      <a class="brand" href="#top">
-        <img class="brand-logo" src="images/mixicles-logo.png" alt="Mixicles logo">
-        <span>MIXICLES</span>
-      </a>
+<div class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img class="brand-logo" src="images/mixicles-logo.png" alt="Mixicles logo">
+      <span>MIXICLES</span>
+    </a>
 
-      <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#flavors">Flavors</a>
-        <a href="#audience">Audience</a>
-        <a href="#contact">Contact</a>
-      </div>
+    <!-- Desktop links -->
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#flavors">Flavors</a>
+      <a href="#audience">Audience</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <!-- Top bar buttons -->
+    <div class="cta">
+      <a class="btn btn-ghost" href="#flavors">See flavors</a>
+      <a class="btn btn-primary" href="#contact">Get a sample</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">About</a>
+    <a href="#flavors">Flavors</a>
+    <a href="#audience">Audience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
 
       <div class="cta">
         <a class="btn btn-ghost" href="#flavors">See flavors</a>
@@ -838,5 +975,26 @@
 
     document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
   </script>
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  menuToggle.addEventListener("click", () => {
+    menuToggle.classList.toggle("active");
+    mobileMenu.classList.toggle("show");
+
+    const expanded = menuToggle.classList.contains("active");
+    menuToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+  });
+
+  // close mobile menu after clicking a link
+  mobileMenu.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      menuToggle.classList.remove("active");
+      mobileMenu.classList.remove("show");
+      menuToggle.setAttribute("aria-expanded", "false");
+    });
+  });
+</script>
 </body>
 </html>
